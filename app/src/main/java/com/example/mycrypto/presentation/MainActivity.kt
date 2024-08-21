@@ -1,21 +1,33 @@
 package com.example.mycrypto.presentation
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.mycrypto.R
+import com.example.mycrypto.di.DaggerApplicationComponent
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
+    }
+
+    private val component by lazy {
+        DaggerApplicationComponent.create()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        component.inject(this)
+        viewModel.updateCoinsList()
+        viewModel.coinsList.observe(this){
+            Log.d("MainActivity", it.toString())
         }
     }
 }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.ksp)
 }
 
@@ -36,6 +37,12 @@ android {
     }
 }
 
+kapt {
+    arguments{
+        arg("dagger.generateGraphViz", "true")
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -55,5 +62,9 @@ dependencies {
     //Dagger2
     implementation(libs.dagger.android)
     ksp(libs.dagger.compiler)
+    kapt(libs.scabbard.processor)
+
+    //LifeCycle
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
 }

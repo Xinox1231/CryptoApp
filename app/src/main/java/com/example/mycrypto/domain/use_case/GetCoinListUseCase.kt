@@ -2,9 +2,10 @@ package com.example.mycrypto.domain.use_case
 
 import com.example.mycrypto.domain.CoinRepository
 import com.example.mycrypto.domain.model.Coin
+import javax.inject.Inject
 
-class GetCoinListUseCase(
+class GetCoinListUseCase @Inject constructor(
     private val repository: CoinRepository
 ){
-    operator fun invoke(): List<Coin> = repository.getCoinList()
+    suspend operator fun invoke(): List<Coin> = repository.getCoinList()
 }

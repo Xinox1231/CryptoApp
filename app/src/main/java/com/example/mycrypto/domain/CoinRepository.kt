@@ -5,7 +5,7 @@ import com.example.mycrypto.domain.model.CoinDetails
 
 interface CoinRepository {
 
-    fun getCoinList(): List<Coin>
+    suspend fun getCoinList(): List<Coin>
 
-    fun getCoinDetailsById(id: String): List<CoinDetails>
+    suspend fun getCoinDetailsById(id: String): CoinDetails
 }
