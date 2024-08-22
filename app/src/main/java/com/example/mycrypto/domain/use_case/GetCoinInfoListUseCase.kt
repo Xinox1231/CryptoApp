@@ -5,9 +5,8 @@ import com.example.mycrypto.domain.CoinRepository
 import com.example.mycrypto.domain.model.CoinInfo
 import javax.inject.Inject
 
-class GetCoinDetailsUseCase @Inject constructor(
+class GetCoinInfoListUseCase @Inject constructor(
     private val repository: CoinRepository
 ) {
-    operator fun invoke(fSym: String): LiveData<CoinInfo> =
-        repository.getCoinDetails(fSym)
+    operator fun invoke(): LiveData<List<CoinInfo>> = repository.getCoinList()
 }

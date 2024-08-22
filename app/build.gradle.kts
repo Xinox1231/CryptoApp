@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.ksp)
 }
 
@@ -15,7 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,12 +35,6 @@ android {
     }
 }
 
-kapt {
-    arguments{
-        arg("dagger.generateGraphViz", "true")
-    }
-}
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -57,12 +49,15 @@ dependencies {
     //Retrofit
     implementation(libs.gson)
     implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Room
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
 
     //Dagger2
     implementation(libs.dagger.android)
     ksp(libs.dagger.compiler)
-    kapt(libs.scabbard.processor)
 
     //LifeCycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

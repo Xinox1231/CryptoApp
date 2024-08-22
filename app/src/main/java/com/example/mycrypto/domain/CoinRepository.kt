@@ -1,11 +1,13 @@
 package com.example.mycrypto.domain
 
-import com.example.mycrypto.domain.model.Coin
-import com.example.mycrypto.domain.model.CoinDetails
+import androidx.lifecycle.LiveData
+import com.example.mycrypto.domain.model.CoinInfo
 
 interface CoinRepository {
 
-    suspend fun getCoinList(): List<Coin>
+    fun getCoinList(): LiveData<List<CoinInfo>>
 
-    suspend fun getCoinDetailsById(id: String): CoinDetails
+    fun getCoinDetails(fSyms: String): LiveData<CoinInfo>
+
+    suspend fun loadData()
 }

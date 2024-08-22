@@ -1,9 +1,14 @@
 package com.example.mycrypto.data.datasource
 
-import com.example.mycrypto.data.remote.dto.CoinDetailsDto
-import com.example.mycrypto.data.remote.dto.CoinDto
+import com.example.mycrypto.data.remote.dto.CoinInfoJsonContainerDto
+import com.example.mycrypto.data.remote.dto.CoinNamesListDto
 
 interface RemoteDataSource {
-    suspend fun getCoinDetailsById(coinId: String): CoinDetailsDto
-    suspend fun getAllCoins(): List<CoinDto>
+    suspend fun loadData(
+        page: Int
+    ): CoinNamesListDto?
+
+    suspend fun loadCoinDetailsById(
+        fSyms: String,
+    ): CoinInfoJsonContainerDto?
 }
