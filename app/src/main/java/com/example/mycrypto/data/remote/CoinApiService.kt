@@ -8,20 +8,20 @@ import retrofit2.http.Query
 
 interface CoinApiService {
 
-    @GET("totalvolfull")
+    @GET("top/totalvolfull")
     suspend fun loadCoinList(
         @Query(QUERY_PARAM_PAGE) page: Int,
         @Query(QUERY_PARAM_LIMIT) limit: Int = 20,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY,
         @Header(QUERY_PARAM_API_KEY) apiKey: String = API_KEY,
-    ): CoinNamesListDto?
+    ): CoinNamesListDto
 
     @GET("pricemultifull")
     suspend fun loadCoinDetailsById(
         @Query(QUERY_PARAM_FROM_SYMBOLS) fSyms: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY,
         @Header(QUERY_PARAM_API_KEY) apiKey: String = API_KEY,
-    ): CoinInfoJsonContainerDto?
+    ): CoinInfoJsonContainerDto
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "api_key"

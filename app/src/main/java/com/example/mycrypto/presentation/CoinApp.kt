@@ -1,4 +1,4 @@
-package com.example.mycrypto
+package com.example.mycrypto.presentation
 
 import android.app.Application
 import com.example.mycrypto.di.DaggerApplicationComponent

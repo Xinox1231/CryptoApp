@@ -1,5 +1,6 @@
 package com.example.mycrypto.data.mapper
 
+import android.util.Log
 import com.example.mycrypto.data.database.model.CoinInfoDb
 import com.example.mycrypto.data.remote.dto.CoinInfoDto
 import com.example.mycrypto.data.remote.dto.CoinInfoJsonContainerDto
@@ -48,8 +49,8 @@ class CoinMapper @Inject constructor() {
         return sdf.format(date)
     }
 
-    fun mapCoinNamesListToString(list: CoinNamesListDto?): String {
-        return list?.names?.map { it.coinName?.name }?.joinToString { "," } ?: EMPTY_STRING
+    fun mapCoinNamesListToString(namesListDto: CoinNamesListDto): String {
+        return namesListDto.names?.map { it.coinName?.name }?.joinToString ( "," ) ?: EMPTY_STRING
     }
 
     // jsonObject содержит набор ключей, каждый из которых приводит к другому jsonObject - монету

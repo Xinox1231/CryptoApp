@@ -9,7 +9,7 @@ class LocalDataSourceImpl @Inject constructor(
     private val coinInfoDao: CoinInfoDao
 ) : LocalDataSource {
 
-    override fun insertList(list: List<CoinInfoDb>) {
+    override suspend fun insertList(list: List<CoinInfoDb>) {
         coinInfoDao.insertData(list)
     }
 

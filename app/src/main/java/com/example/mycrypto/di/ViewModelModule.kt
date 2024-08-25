@@ -1,7 +1,7 @@
 package com.example.mycrypto.di
 
 import androidx.lifecycle.ViewModel
-import com.example.mycrypto.presentation.MainViewModel
+import com.example.mycrypto.presentation.ApplicationViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -10,7 +10,7 @@ import dagger.multibindings.IntoMap
 interface ViewModelModule {
 
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
+    @ViewModelKey(ApplicationViewModel::class)
     @Binds
-    fun bindMainViewModel(impl: MainViewModel): ViewModel
+    fun bindMainViewModel(impl: ApplicationViewModel): ViewModel
 }

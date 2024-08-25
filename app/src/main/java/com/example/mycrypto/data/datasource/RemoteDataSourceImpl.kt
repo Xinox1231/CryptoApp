@@ -9,8 +9,8 @@ class RemoteDataSourceImpl @Inject constructor(
     private val apiService: CoinApiService
 ) : RemoteDataSource {
 
-    override suspend fun loadData(page: Int): CoinNamesListDto? = apiService.loadCoinList(page)
+    override suspend fun loadData(page: Int): CoinNamesListDto = apiService.loadCoinList(page)
 
-    override suspend fun loadCoinDetailsById(fSyms: String): CoinInfoJsonContainerDto? =
+    override suspend fun loadCoinDetailsById(fSyms: String): CoinInfoJsonContainerDto =
         apiService.loadCoinDetailsById(fSyms)
 }

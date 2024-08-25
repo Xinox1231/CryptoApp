@@ -5,7 +5,7 @@ import com.example.mycrypto.data.database.model.CoinInfoDb
 
 interface LocalDataSource {
 
-    fun insertList(list: List<CoinInfoDb>)
+    suspend fun insertList(list: List<CoinInfoDb>)
 
     fun getList(): LiveData<List<CoinInfoDb>>
 

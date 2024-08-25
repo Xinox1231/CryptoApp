@@ -1,13 +1,16 @@
 package com.example.mycrypto.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.example.mycrypto.data.components.Constants
 import com.example.mycrypto.data.datasource.LocalDataSource
 import com.example.mycrypto.data.datasource.RemoteDataSource
 import com.example.mycrypto.data.mapper.CoinMapper
 import com.example.mycrypto.data.remote.dto.CoinInfoDto
 import com.example.mycrypto.domain.CoinRepository
 import com.example.mycrypto.domain.model.CoinInfo
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class CoinRepositoryImpl @Inject constructor(
@@ -22,7 +25,7 @@ class CoinRepositoryImpl @Inject constructor(
             field = value
         }
 
-    override suspend fun getCoinList(): LiveData<List<CoinInfo>> {
+    override fun getCoinList(): LiveData<List<CoinInfo>> {
         return localDataSource.getList().map {
             it.map {
                 mapper.mapCoinInfoDbToCoinInfo(it)
@@ -30,16 +33,23 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCoinDetails(fSyms: String): LiveData<CoinInfo> {
+    override fun getCoinDetails(fSyms: String): LiveData<CoinInfo> {
         return localDataSource.getDetailedInfo(fSyms).map { mapper.mapCoinInfoDbToCoinInfo(it) }
     }
 
     override suspend fun loadData() {
-        val listCoinInfoDto = getCoinInfoDtoList()
-        val listCoinInfoDb = listCoinInfoDto.map {
-            mapper.mapCoinInfoDtoToDb(it)
+        while (true) {
+            try {
+                val listCoinInfoDto = getCoinInfoDtoList()
+                val listCoinInfoDb = listCoinInfoDto.map {
+                    mapper.mapCoinInfoDtoToDb(it)
+                }
+                localDataSource.insertList(listCoinInfoDb)
+            } catch (e: Exception) {
+                Log.d("CoinRepositoryImpl", e.toString())
+            }
+            delay(20 * Constants.MILLIS_IN_SECOND)
         }
-        localDataSource.insertList(listCoinInfoDb)
     }
 
     private suspend fun getCoinInfoDtoList(): List<CoinInfoDto> {
