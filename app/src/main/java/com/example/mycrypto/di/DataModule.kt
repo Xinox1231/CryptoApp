@@ -24,9 +24,11 @@ interface DataModule {
 
     companion object {
 
+        @ApplicationScope
         @Provides
         fun provideCoinApiService(): CoinApiService = ApiFactory.apiService
 
+        @ApplicationScope
         @Provides
         fun provideCoinInfoDao(application: Application): CoinInfoDao =
             AppDataBase.getInstance(application).coinInfoDao()
